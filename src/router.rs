@@ -8,6 +8,7 @@ use iron::{status, method, headers};
 use iron::typemap::Key;
 use iron::modifiers::Redirect;
 use iron::Url;
+use mount;
 
 use recognizer::Router as Recognizer;
 use recognizer::{Match, Params};
@@ -185,7 +186,11 @@ impl Router {
     fn redirect_slash(&self, req: &Request) -> Option<IronError> {
         let mut url = req.url.clone();
         let mut path = url.path().join("/");
+        let original = req.extensions.get::<mount::OriginalUrl>();
 
+        if original.is_some() {
+            url =  original.unwrap().clone();
+        }
         if let Some(last_char) = path.chars().last() {
             // Unwrap generic URL to get access to its path components.
             let mut generic_url = url.into_generic_url();

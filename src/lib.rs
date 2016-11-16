@@ -6,6 +6,7 @@
 extern crate iron;
 extern crate route_recognizer as recognizer;
 extern crate url;
+extern crate mount;
 
 pub use router::{Router, RouterError, NoRoute, TrailingSlash};
 pub use recognizer::Params;
