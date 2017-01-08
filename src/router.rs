@@ -263,7 +263,9 @@ pub enum RouterError {
     /// The error thrown by router if there is no matching route.
     NotFound,
     /// The error thrown by router if a request was redirected by adding or removing a trailing slash.
-    TrailingSlash
+    TrailingSlash,
+    ///
+    BadRequest
 }
 
 
@@ -278,7 +280,8 @@ impl Error for RouterError {
         match *self {
             RouterError::MethodNotAllowed => "Method Not Allowed",
             RouterError::NotFound => "No matching route found.",
-            RouterError::TrailingSlash => "The request had a trailing slash."
+            RouterError::TrailingSlash => "The request had a trailing slash.",
+            RouterError::BadRequest => "The request is not valid."
         }
     }
 }
